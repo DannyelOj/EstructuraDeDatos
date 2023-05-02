@@ -20,7 +20,8 @@ public class Metodo_Arreglos {
         System.out.println("3. Llenar espacio vacio");
         System.out.println("4. Recorrer arreglo a la derecha");
         System.out.println("5. Llenar arreglo ordenado");
-        System.out.println("6. Salir \n");
+        System.out.println("6. Busqueda binaria");
+        System.out.println("7. Salir \n");
 
         return entrada.nextInt();
     }
@@ -95,4 +96,68 @@ public class Metodo_Arreglos {
         return ev;
     }
 
+    public int busquedaBinaria(int[] x, int ini, int fin, int num) {
+        int medio = 0;
+        if (ini < fin) {
+            medio = (ini + fin) / 2;
+            if (x[medio] == num) {
+                return medio;
+            } else if (num > x[medio]) {
+                return busquedaBinaria(x, medio + 1, fin, num);
+            } else {
+                return busquedaBinaria(x, ini, medio - 1, num);
+            }
+        } else {
+            return -1;
+        }
+    }
+
+    public void ordenarregllo(int[] x, int ini, int fin) {
+        int aux;
+        int a = ini;
+        int b = fin;
+        int pv = x[(ini + fin) / 2];
+        do {
+            while (x[a] < pv) {
+                a++;
+            }
+            while (x[b] > pv) {
+                b++;
+            }
+            if (a < b) {
+                aux = x[a];
+                x[a] = x[b];
+                x[b] = x[a];
+            }
+            a++;
+            b--;
+        } while (a <= b);
+        if (ini < b);
+            ordenarregllo(x, ini, b);
+        if (a < fin);
+            ordenarregllo(x, ini, b);
+    }
+
+    public void recorrerIzq(int[] x, int pos, int ev) {
+        for (int i = pos; i > ev-1; i++) {
+            x[i] = x[i + 1];
+        }
+    }
+    
+    public int secuencial(int[]x, int num, int ev){
+        for(int i = 0; i <ev; i++){
+            if(x[i]==num)
+                return i;
+        }
+        return -1;
+    }
+    
+    public int elimina(int[]x, int num, int ev){
+        int pos=secuencial(x,num,ev);
+        if(pos!=1){
+            recorrerIzq(x, pos, ev);
+            ev--;
+        }
+        return ev;
+    }
 }
